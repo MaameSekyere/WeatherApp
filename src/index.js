@@ -42,10 +42,18 @@ function displayTemp(response) {
   );
 }
 
-let apiKey = "573a564668504c3a4328912c04e8e7e5";
-let city = "Buffalo";
-let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+function search(city) {
+  let apiKey = "573a564668504c3a4328912c04e8e7e5";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayTemp);
+}
 
-console.log(apiUrl);
+function submitHandle(event) {
+  event.preventDefault();
+  let citySearchEl = document.querySelector("#city-search");
+  search(citySearchEl.value);
+}
 
-axios.get(apiUrl).then(displayTemp);
+search("Buffalo");
+let form = document.querySelector("#form-search");
+form.addEventListener("submit", submitHandle);
