@@ -1,23 +1,49 @@
-.weather-app {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 20px;
-  border: 1px solid black;
-  border-radius: 5px;
-}
-h2 {
+h1 {
   color: black;
   font-size: 24px;
   font-weight: bolder;
   list-style: 1;
+  margin-bottom: 0;
 }
 
-ul {
+.first {
+  list-style: none;
   margin: 0;
   padding: 0;
+  font-size: 16px;
+  line-height: 1;
 }
- li
+
+#second {
+  list-style: none;
+}
+
 #icon {
-  width: 50px;
-  height: 45px;
+  width: 40px;
+}
+
+.temperature {
+  font-size: 45px;
+}
+
+#units {
+  position: relative;
+  font-size: 16px;
+  top: -34px;
+}
+
+.weather-app {
+  max-width: 640px;
+  margin: 30px auto;
+  padding: 30px;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
+.weather-city {
+  margin-bottom: 20px;
+}
+small {
+  margin-top: 10px;
+  text-align: center;
 }
