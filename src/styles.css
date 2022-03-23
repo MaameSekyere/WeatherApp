@@ -6,7 +6,7 @@ h1 {
   margin-bottom: 0;
 }
 
-.first {
+#first {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -23,17 +23,18 @@ h1 {
 }
 
 #icon {
-  width: 50px;
+  width: 100px;
 }
 
-.temperature {
-  font-size: 80px;
+#temperature {
+  font-size: 50px;
 }
 
 #units {
+  margin-top: 20px;
   position: relative;
   font-size: 15px;
-  top: -34px;
+  top: -22px;
 }
 
 .weather-app {
