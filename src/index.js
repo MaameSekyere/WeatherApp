@@ -30,7 +30,9 @@ function displayTemp(response) {
   let dateEl = document.querySelector("#date");
   let iconEl = document.querySelector("#icon");
 
-  temperatureEl.innerHTML = Math.round(response.data.main.temp);
+  celsiusDegree = response.data.main.temp;
+
+  temperatureEl.innerHTML = Math.round(celsiusDegree);
   cityEl.innerHTML = response.data.name;
   descriptionEl.innerHTML = response.data.weather[0].description;
   humidityEl.innerHTML = response.data.main.humidity;
@@ -48,12 +50,34 @@ function search(city) {
   axios.get(apiUrl).then(displayTemp);
 }
 
+function showFahrenheitTemp(event) {
+  event.preventDefault();
+  let fahrenheitTemp = Math.round((celsiusDegree * 9) / 5 + 32);
+  let temperatureEl = document.querySelector("#temperature");
+  temperatureEl.innerHTML = fahrenheitTemp;
+}
+
 function submitHandle(event) {
   event.preventDefault();
   let citySearchEl = document.querySelector("#city-search");
   search(citySearchEl.value);
 }
 
-search("Buffalo");
+function showCelsiusTemp(event) {
+  event.preventDefault();
+  let temperatureEl = document.querySelector("#temperature");
+  temperatureEl.innerHTML = Math.round(celsiusDegree);
+}
+
+let celsiusDegree = null;
+
 let form = document.querySelector("#form-search");
 form.addEventListener("submit", submitHandle);
+
+let fahrenheitDegree = document.querySelector("#fahrenheit-degree");
+fahrenheitDegree.addEventListener("click", showFahrenheitTemp);
+
+let celsiusLink = document.querySelector("#celsius-link");
+celsiusLink.addEventListener("click", showCelsiusTemp);
+
+search("Buffalo");
