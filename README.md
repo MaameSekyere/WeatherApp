@@ -43,3 +43,5 @@ https://maamesekyere.github.io/WeatherApp/
 W3 schools tutorials, SheCodes and OpenWeather api docs.
 
 ## Screenshot
+
+<img width="640" alt="Screen Shot 2022-04-15 at 6 55 34 AM" src="https://user-images.githubusercontent.com/94888460/163565611-6fe563b8-6dd9-4713-971c-37f49976a216.png">
