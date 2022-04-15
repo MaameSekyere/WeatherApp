@@ -74,7 +74,7 @@ function getForecast(coordinates) {
   console.log(coordinates);
   let apiKey = "573a564668504c3a4328912c04e8e7e5";
   let apiUrl = `
-  https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric
+  https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial
   `;
   axios.get(apiUrl).then(displayWeatherForecast);
 }
@@ -106,7 +106,7 @@ function displayTemp(response) {
 
 function search(city) {
   let apiKey = "573a564668504c3a4328912c04e8e7e5";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(displayTemp);
 }
 
@@ -123,21 +123,10 @@ function submitHandle(event) {
   search(citySearchEl.value);
 }
 
-function showCelsiusTemp(event) {
-  event.preventDefault();
-  let temperatureEl = document.querySelector("#temperature");
-  temperatureEl.innerHTML = Math.round(celsiusDegree);
-}
-
-let celsiusDegree = null;
-
 let form = document.querySelector("#form-search");
 form.addEventListener("submit", submitHandle);
 
 let fahrenheitDegree = document.querySelector("#fahrenheit-degree");
 fahrenheitDegree.addEventListener("click", showFahrenheitTemp);
-
-let celsiusLink = document.querySelector("#celsius-link");
-celsiusLink.addEventListener("click", showCelsiusTemp);
 
 search("Buffalo");
