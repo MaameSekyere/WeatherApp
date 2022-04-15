@@ -1,3 +1,6 @@
+var citySave = [];
+let listEl = document.querySelector("#second-list");
+//Show current time and day
 function showDate(timestamp) {
   let date = new Date(timestamp);
   let hours = date.getHours();
@@ -28,7 +31,7 @@ function formatDay(timestamp) {
 
   return days[day];
 }
-
+// Display weather forecast
 function displayWeatherForecast(response) {
   let forecast = response.data.daily;
   let forecastEl = document.querySelector("#weather-forecast");
@@ -69,6 +72,7 @@ function displayWeatherForecast(response) {
   forecastEl.innerHTML = forecastHTML;
 }
 
+// Get coordinates API to display weather forecast
 function getForecast(coordinates) {
   let apiKey = "573a564668504c3a4328912c04e8e7e5";
   let apiUrl = `
@@ -77,6 +81,30 @@ function getForecast(coordinates) {
   axios.get(apiUrl).then(displayWeatherForecast);
 }
 
+function displayUVIndex(response) {
+  // Create Elements for UV Index Data
+  let uvEl = document.querySelector("#uv-index");
+  uvEl.innerHTML = "UV Index:" + data.coords;
+
+  // Set Styling for UV Value Based on Conditions
+
+  if (uvEl < 1) {
+    uvEl.style.color = "Blue";
+  } else {
+    uvEl.style.color = "Red";
+  }
+  input.value = "";
+}
+
+// Function to Get UV Index Data
+function getUVIndex(coordinates) {
+  let apiUrl = `
+  https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial
+  `;
+  axios.get(apiUrl).then(displayUVIndex);
+}
+
+// display tempearature and select elements
 function displayTemp(response) {
   let temperatureEl = document.querySelector("#temperature");
   let cityEl = document.querySelector("#city");
@@ -100,14 +128,26 @@ function displayTemp(response) {
   );
 
   getForecast(response.data.coord);
+  getUVIndex(response.data.coord);
 }
 
+// search city with API
 function search(city) {
   let apiKey = "573a564668504c3a4328912c04e8e7e5";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(displayTemp);
+
+  savedCities();
 }
 
+//create function for saving city buttons to localstorage
+function savedCities() {
+  for (var i = 0; i < citySave.length; i++) {
+    localStorage.setItem(i, citySave[i]);
+  }
+}
+
+// show fahrenehit temp
 function showFahrenheitTemp(event) {
   event.preventDefault();
   let fahrenheitTemp = Math.round((celsiusDegree * 9) / 5 + 32);
@@ -115,15 +155,17 @@ function showFahrenheitTemp(event) {
   temperatureEl.innerHTML = fahrenheitTemp;
 }
 
+// city search
 function submitHandle(event) {
   event.preventDefault();
   let citySearchEl = document.querySelector("#city-search");
   search(citySearchEl.value);
 }
-
+// city search form
 let form = document.querySelector("#form-search");
 form.addEventListener("submit", submitHandle);
 
+// unit search
 let fahrenheitDegree = document.querySelector("#fahrenheit-degree");
 fahrenheitDegree.addEventListener("click", showFahrenheitTemp);
 
