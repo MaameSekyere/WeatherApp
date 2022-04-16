@@ -79,25 +79,26 @@ function getForecast(coordinates) {
   https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial
   `;
   axios.get(apiUrl).then(displayWeatherForecast);
+  getUVIndex(coordinates, apiKey);
 }
 
 function displayUVIndex(response) {
   // Create Elements for UV Index Data
   let uvEl = document.querySelector("#uv-index");
-  uvEl.innerHTML = "UV Index:" + data.coords;
+  uvEl.innerHTML = response.data.current.uvi;
 
   // Set Styling for UV Value Based on Conditions
-
-  if (uvEl < 1) {
+  if (uvEl.textContent < 3) {
     uvEl.style.color = "Blue";
+  } else if (uvEl.textContent > 3 || uvEl.textContent < 5) {
+    uvEl.style.color = "Orange";
   } else {
     uvEl.style.color = "Red";
   }
-  input.value = "";
 }
 
 // Function to Get UV Index Data
-function getUVIndex(coordinates) {
+function getUVIndex(coordinates, apiKey) {
   let apiUrl = `
   https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=imperial
   `;
@@ -128,7 +129,6 @@ function displayTemp(response) {
   );
 
   getForecast(response.data.coord);
-  getUVIndex(response.data.coord);
 }
 
 // search city with API
